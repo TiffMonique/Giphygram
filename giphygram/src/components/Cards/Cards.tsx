@@ -10,7 +10,6 @@ import {
   Image,
   useColorModeValue,
   SimpleGrid,
-  boxBg,
 } from "@chakra-ui/react";
 // Assets
 
@@ -22,7 +21,7 @@ const Cards = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   
-
+  let boxBg = useColorModeValue("white !important", "#111c44 !important");
   let iconBox = useColorModeValue("gray.100", "whiteAlpha.200");
   let iconColor = useColorModeValue("brand.200", "white");
 
@@ -56,14 +55,12 @@ const Cards = () => {
     return data.map((element) => {
       return (
           <div key={element.id} className="gif">
-           
-    
       <Flex
         borderRadius="20px"
-      
+        bg={boxBg}
         p="20px"
         h="345px"
-        w={{ base: "315px", md: "345px" }}
+        w={{ base: "100%", sm: "345px" }}
         alignItems="center"
         direction="column"
       >
@@ -104,7 +101,8 @@ const Cards = () => {
   }
 
   return (
-    <SimpleGrid columns={[1, 2, 3]} spacing="40px">
+    <SimpleGrid columns={{base:1, md:2, lg:3}} spacing="40px">
+      
      {renderGifs()}
     </SimpleGrid>
    
