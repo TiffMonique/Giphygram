@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
+
 const Links = ["Buscar", "Favoritos", "Visitados"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (

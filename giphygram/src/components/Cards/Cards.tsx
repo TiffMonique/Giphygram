@@ -14,6 +14,7 @@ import {
 // Assets
 
 import { IoHeartOutline } from "react-icons/io5";
+import {CardProps} from "./types";
 
 const Cards = () => {
   const [data, setData] = useState([]);
@@ -52,7 +53,8 @@ const Cards = () => {
   }, []);
 
   const renderGifs =()=>{
-    return data.map((element) => {
+    console.log("Data", data);
+    return data.map((element:CardProps) => {
       return (
           <div key={element.id} className="gif">
       <Flex
