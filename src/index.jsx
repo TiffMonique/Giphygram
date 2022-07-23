@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import { ChakraProvider } from "@chakra-ui/react";
+import App from "./App";
+
 // Custom Chakra theme
-import theme from "./theme/theme.js";
+import theme from "./theme/theme";
 
 ReactDOM.render(
   <ChakraProvider theme={theme} resetCss={false} position="relative">
     <App />
   </ChakraProvider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
