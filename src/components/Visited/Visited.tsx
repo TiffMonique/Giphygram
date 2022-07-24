@@ -10,12 +10,13 @@ import {
   SimpleGrid,
   Box,
 } from "@chakra-ui/react";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoHeartSharp, IoHeartOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { CardProps } from "../Cards/types";
 import { RootState } from "../../redux/store";
 
 function Visited() {
+  const gifsFavorites = useSelector((state: RootState) => state.favoritesGifs);
   const boxBg = useColorModeValue("white !important", "#111c44 !important");
   const iconBox = useColorModeValue("gray.100", "whiteAlpha.200");
   const iconColor = useColorModeValue("brand.200", "white");
@@ -87,6 +88,24 @@ function Visited() {
                           <Icon
                             w="24px"
                             h="24px" as={IoClose} color={iconColor} />
+                        </Button>
+                        <Button
+                          w="38px"
+                          h="38px"
+                          textAlign="center"
+                          justifyContent="center"
+                          borderRadius="12px"
+                          me="12px"
+                          bg={iconBox}
+                          onClick={() => {
+                            if (gifsFavorites.find((item) => element.id === item.id)) {
+                              dispatch({ type: "deletFavoritedGif", payload: element });
+                            } else {
+                              dispatch({ type: "addFavoritedGif", payload: element })
+                            }
+                          }}
+                        >
+                          <Icon w="24px" h="24px" as={gifsFavorites.find((item) => element.id === item.id) ? IoHeartSharp : IoHeartOutline} color={iconColor} />
                         </Button>
                       </Flex>
                       <Image
