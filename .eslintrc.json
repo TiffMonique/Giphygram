@@ -40,6 +40,16 @@
         "react/no-unescaped-entities": [
             "off"
         ],
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "@typescript-eslint/default-param-last": "off",
+        "prettier/prettier": [
+            "off",
+            {
+                "singleQuote": true,
+                "parser": "flow"
+            }
+        ],
+        "react/jsx-no-useless-fragment": "off",
+        "react-hooks/exhaustive-deps": "off"
     }
 }
