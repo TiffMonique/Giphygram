@@ -50,6 +50,8 @@
             }
         ],
         "react/jsx-no-useless-fragment": "off",
-        "react-hooks/exhaustive-deps": "off"
+        "react-hooks/exhaustive-deps": "off",
+        "global-require": 0,
+        "react/require-default-props": "off"
     }
 }
