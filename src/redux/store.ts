@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import {combineReducers} from "redux";
 import reducer from "./gifs/gifs";
-
+import favoritesReducer from "./gifs/favorites";
 
 const persistConfig = {
   key: "root",
@@ -11,6 +11,7 @@ const persistConfig = {
 };
 const reducers = combineReducers({
   visitedGifs: reducer,
+  favoritesGifs: favoritesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
