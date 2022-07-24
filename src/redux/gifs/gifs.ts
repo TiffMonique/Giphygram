@@ -11,7 +11,14 @@
 // export const { addVisitedGif } = visitedGifs.actions;
 // export default visitedGifs.reducer;
 const typeactions = {
-  addVisitedGif: (state, payload) => [...state, payload],
+  addVisitedGif: (state, payload) => {
+    const isExists = state.find((gif) => gif.id === payload.id);
+    return isExists ? state : [...state, payload];
+  },
+  deleteVisitedGif: (state, payload) => {
+    const newState = state.filter((gif) => gif.id !== payload.id);
+    return newState;
+  },
 };
 
 export interface Gif {
