@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
 // Chakra imports
 import {
   Flex,
@@ -17,6 +17,7 @@ import {
 
 import { IoHeartOutline } from "react-icons/io5";
 import { CardProps } from "./types";
+import { RootState } from "../../redux/store";
 
 function Cards() {
   const [data, setData] = useState([]);
@@ -24,7 +25,9 @@ function Cards() {
   const boxBg = useColorModeValue("white !important", "#111c44 !important");
   const iconBox = useColorModeValue("gray.100", "whiteAlpha.200");
   const iconColor = useColorModeValue("brand.200", "white");
-
+  const gifs = useSelector((state: RootState) => state.visitedGifs);
+  const dispatch = useDispatch();
+  console.log(gifs);
   useEffect(() => {
     const fetchData = async () => {
       const results = await axios("https://api.giphy.com/v1/gifs/trending", {
@@ -74,6 +77,10 @@ function Cards() {
               className="gif"
               onClick={() => {
                 navigate(`/gif/${element.id}`);
+                dispatch({
+                  type: "addVisitedGif",
+                  payload: element,
+                });
               }}
             />
           </Flex>
