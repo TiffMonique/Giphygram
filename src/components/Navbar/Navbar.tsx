@@ -12,6 +12,8 @@ import {
   Stack,
   Image,
 } from "@chakra-ui/react";
+import { BsSun, BsMoonStarsFill } from 'react-icons/bs';
+import { useNavigate } from "react-router-dom";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 const Links = [
@@ -45,7 +47,8 @@ function NavLink({ children, route = "" }: { children: ReactNode; route?: string
     </Link>
   );
 }
-function WithAction(logo) {
+function WithAction() {
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   return (
@@ -59,7 +62,9 @@ function WithAction(logo) {
           onClick={isOpen ? onClose : onOpen}
         />
         <HStack spacing={8} alignItems="center">
-          <Image src={logo.logo} width="100px" />
+          <Image src={require("../../assets/GIPHYGRAM.png")} width="100px" onClick={() => {
+            navigate("/");
+          }} cursor="pointer" />
 
           <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
             {Links.map((link) => (
@@ -75,7 +80,7 @@ function WithAction(logo) {
           onClick={toggleColorMode}
           color="white"
         >
-          {colorMode === "light" ? "Dark" : "Light"}
+          {colorMode === 'light' ? <BsMoonStarsFill /> : <BsSun />}
         </Button>
       </Flex>
       {isOpen ? (
