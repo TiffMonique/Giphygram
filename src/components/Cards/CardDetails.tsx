@@ -2,7 +2,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Image, Text, Container, Icon, Button, useColorModeValue, Wrap } from "@chakra-ui/react";
+import { Image, Text, SimpleGrid, Icon, Button, useColorModeValue, Flex, Box } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { RootState } from "../../redux/store";
@@ -21,6 +21,7 @@ function CardDetails() {
   const iconBox = useColorModeValue("gray.100", "whiteAlpha.200");
   const gifsFavorites = useSelector((state: RootState) => state.favoritesGifs);
   const iconColor = useColorModeValue("brand.200", "white");
+  const boxBg = useColorModeValue("white !important", "#111c44 !important");
   const { id } = useParams();
   const dispatch = useDispatch();
   const [fetchData, updateFetchData] = useState<CardsDetails>(
@@ -45,32 +46,59 @@ function CardDetails() {
   }, []);
 
   return (
-    <Container bg='blue.600' color='white' pb="50px">
-      <Wrap spacing='30px' align='center' w="100%" h="100%">
-        <Text fontSize="lg">{title}</Text>
-        <Button
-          w="38px"
-          h="38px"
-          textAlign="center"
-          justifyContent="center"
-          borderRadius="12px"
-          me="12px"
-          bg={iconBox}
-          onClick={() => {
-            if (gifsFavorites.find((item) => fetchData.id === item.id)) {
-              dispatch({ type: "deletFavoritedGif", payload: fetchData });
-            } else {
-              dispatch({ type: "addFavoritedGif", payload: fetchData })
-            }
-          }}
+    <Box h="100%" w="100%">
+      <Flex
+        flexDirection="row"
+        w="100%"
+        px="10px"
+        my="30px"
+        mx="auto"
+        py="50px"
+        borderRadius="20px"
+      >
+        <Flex
+          direction={{ base: "row", xl: "row" }}
+          mx="auto"
+          rowGap="20px"
+          columnGap="20px"
         >
-          <Icon w="24px" h="24px" as={gifsFavorites.find((item) => fetchData.id === item.id) ? IoHeartSharp : IoHeartOutline} color={iconColor} />
-        </Button>
-        <Image src={images?.fixed_height?.url} w="200%" h="200%" />
-      </Wrap>
-
-    </Container>
-
+          <SimpleGrid columns={[1]}>
+            <Flex
+              borderRadius="20px"
+              bg={boxBg}
+              p="20px"
+              h="100%"
+              w={{ base: "315px", md: "345px" }}
+              alignItems="center"
+              direction="column"
+            >
+              <Flex w="100%" mb="18px">
+                <Button
+                  w="38px"
+                  h="38px"
+                  textAlign="center"
+                  justifyContent="center"
+                  borderRadius="12px"
+                  me="12px"
+                  bg={iconBox}
+                  onClick={() => {
+                    if (gifsFavorites.find((item) => fetchData.id === item.id)) {
+                      dispatch({ type: "deletFavoritedGif", payload: fetchData });
+                    } else {
+                      dispatch({ type: "addFavoritedGif", payload: fetchData })
+                    }
+                  }}
+                >
+                  <Icon w="24px" h="24px" as={gifsFavorites.find((item) => fetchData.id === item.id) ? IoHeartSharp : IoHeartOutline} color={iconColor} />
+                </Button>
+              </Flex>
+              <Image src={images?.fixed_height?.url} w="100%" h="100%" />
+              <Text fontSize="lg">{title}</Text>
+            </Flex>
+          </SimpleGrid >
+        </Flex>
+      </Flex>
+    </Box >
   );
 }
 
