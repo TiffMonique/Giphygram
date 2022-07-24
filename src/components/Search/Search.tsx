@@ -21,9 +21,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-import { IoSearchSharp, IoHeartOutline } from "react-icons/io5";
-
+import { IoSearchSharp, IoHeartOutline, IoHeartSharp } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { SearchProps } from "./types";
+import { RootState } from "../../redux/store";
 
 function Search() {
   const [data, setData] = useState([]);
@@ -31,6 +33,9 @@ function Search() {
   const boxBg = useColorModeValue("white !important", "#111c44 !important");
   const iconBox = useColorModeValue("gray.100", "whiteAlpha.200");
   const iconColor = useColorModeValue("brand.200", "white");
+  const gifsFavorites = useSelector((state: RootState) => state.favoritesGifs);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
@@ -38,18 +43,14 @@ function Search() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const results = await axios(`https://api.giphy.com/v1/gifs/search`, {
-        params: {
-          api_key: "RUDZVfvwwZNVQVTAHDYpcIeIN0jd6h6T",
-          q: search,
-          limit: 100,
-        },
-      });
-      setData(results.data.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const results = await axios(`https://api.giphy.com/v1/gifs/search`, {
+      params: {
+        api_key: "RUDZVfvwwZNVQVTAHDYpcIeIN0jd6h6T",
+        q: search,
+        limit: 100,
+      },
+    });
+    setData(results.data.data);
   };
 
   // const renderGifs = () => {
@@ -139,13 +140,15 @@ function Search() {
                             borderRadius="12px"
                             me="12px"
                             bg={iconBox}
+                            onClick={() => {
+                              if (gifsFavorites.find((item) => element.id === item.id)) {
+                                dispatch({ type: "deletFavoritedGif", payload: element });
+                              } else {
+                                dispatch({ type: "addFavoritedGif", payload: element })
+                              }
+                            }}
                           >
-                            <Icon
-                              w="24px"
-                              h="24px"
-                              as={IoHeartOutline}
-                              color={iconColor}
-                            />
+                            <Icon w="24px" h="24px" as={gifsFavorites.find((item) => element.id === item.id) ? IoHeartSharp : IoHeartOutline} color={iconColor} />
                           </Button>
                         </Flex>
                         <Image
@@ -154,6 +157,13 @@ function Search() {
                           maxH="100%"
                           borderRadius="20px"
                           mb="10px"
+                          onClick={() => {
+                            navigate(`/gif/${element.id}`);
+                            dispatch({
+                              type: "addVisitedGif",
+                              payload: element,
+                            });
+                          }}
                         />
                       </Flex>
                     </div>
