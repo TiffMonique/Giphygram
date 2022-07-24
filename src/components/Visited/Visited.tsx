@@ -10,8 +10,8 @@ import {
   SimpleGrid,
   Box,
 } from "@chakra-ui/react";
-import { IoHeartOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { IoClose } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { CardProps } from "../Cards/types";
 import { RootState } from "../../redux/store";
 
@@ -20,6 +20,7 @@ function Visited() {
   const iconBox = useColorModeValue("gray.100", "whiteAlpha.200");
   const iconColor = useColorModeValue("brand.200", "white");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const gifs = useSelector((state: RootState) => state.visitedGifs);
   return (
     <>
@@ -79,10 +80,13 @@ function Visited() {
                           borderRadius="12px"
                           me="12px"
                           bg={iconBox}
+                          onClick={() => {
+                            dispatch({ type: "deleteVisitedGif", payload: element });
+                          }}
                         >
                           <Icon
                             w="24px"
-                            h="24px" as={IoHeartOutline} color={iconColor} />
+                            h="24px" as={IoClose} color={iconColor} />
                         </Button>
                       </Flex>
                       <Image
