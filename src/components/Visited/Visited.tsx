@@ -71,6 +71,10 @@ function Visited() {
                       w={{ base: "100%", sm: "345px" }}
                       alignItems="center"
                       direction="column"
+                      _hover={{
+                        transform: 'scale(1.05)',
+                        boxShadow: 'lg',
+                      }}
                     >
                       <Flex w="100%" mb="18px">
                         <Button
@@ -114,6 +118,7 @@ function Visited() {
                         maxH="100%"
                         borderRadius="20px"
                         mb="10px"
+                        cursor="pointer"
                         className="gif"
                         onClick={() => {
                           navigate(`/gif/${element.id}`);
