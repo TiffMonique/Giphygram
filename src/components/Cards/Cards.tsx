@@ -15,7 +15,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import { IoHeartOutline } from "react-icons/io5";
+import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { CardProps } from "./types";
 import { RootState } from "../../redux/store";
 
@@ -25,9 +25,9 @@ function Cards() {
   const boxBg = useColorModeValue("white !important", "#111c44 !important");
   const iconBox = useColorModeValue("gray.100", "whiteAlpha.200");
   const iconColor = useColorModeValue("brand.200", "white");
-  const gifs = useSelector((state: RootState) => state.visitedGifs);
+  const gifsFavorites = useSelector((state: RootState) => state.favoritesGifs);
   const dispatch = useDispatch();
-  console.log(gifs);
+
   useEffect(() => {
     const fetchData = async () => {
       const results = await axios("https://api.giphy.com/v1/gifs/trending", {
@@ -64,8 +64,15 @@ function Cards() {
                 borderRadius="12px"
                 me="12px"
                 bg={iconBox}
+                onClick={() => {
+                  if (gifsFavorites.find((item) => element.id === item.id)) {
+                    dispatch({ type: "deletFavoritedGif", payload: element });
+                  } else {
+                    dispatch({ type: "addFavoritedGif", payload: element })
+                  }
+                }}
               >
-                <Icon w="24px" h="24px" as={IoHeartOutline} color={iconColor} />
+                <Icon w="24px" h="24px" as={gifsFavorites.find((item) => element.id === item.id) ? IoHeartSharp : IoHeartOutline} color={iconColor} />
               </Button>
             </Flex>
             <Image
