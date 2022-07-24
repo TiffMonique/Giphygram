@@ -1,14 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Logo from "./assets/GIPHYGRAM.png";
-import Navbar from "./components/Navbar/Navbar";
-import Favorites from "./components/Favorites/Favorites";
-import Search from "./components/Search/Search";
-import Visited from "./components/Visited/Visited";
-import CardDetails from "./components/Cards/CardDetails";
-import Cards from "./components/Cards/Cards";
+import React from "react"
+import { Box, Flex } from "@chakra-ui/react"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Navbar from "./components/Navbar/Navbar"
+import Favorites from "./components/Favorites/Favorites"
+import Search from "./components/Search/Search"
+import Visited from "./components/Visited/Visited"
+import CardDetails from "./components/Cards/CardDetails"
+import Cards from "./components/Cards/Cards"
 
 function Home() {
   return (
@@ -52,13 +51,13 @@ function Home() {
         </Flex>
       </Box>
     </div>
-  );
+  )
 }
 function App() {
   // const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Router>
-      <Navbar logo={Logo} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/favoritos" element={<Favorites />} />
@@ -67,7 +66,7 @@ function App() {
         <Route path="/visitados" element={<Visited />} />
       </Routes>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
