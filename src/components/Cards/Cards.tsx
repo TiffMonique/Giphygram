@@ -42,13 +42,7 @@ function Cards() {
   const renderGifs = () => {
     return data.map((element: CardProps) => {
       return (
-        <div
-          key={element.id}
-          className="gif"
-          onClick={() => {
-            navigate(`/gif/${element.id}`);
-          }}
-        >
+        <div key={element.id}>
           <Flex
             borderRadius="20px"
             bg={boxBg}
@@ -77,6 +71,10 @@ function Cards() {
               maxH="100%"
               borderRadius="20px"
               mb="10px"
+              className="gif"
+              onClick={() => {
+                navigate(`/gif/${element.id}`);
+              }}
             />
           </Flex>
         </div>

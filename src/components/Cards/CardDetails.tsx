@@ -2,7 +2,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Image, Text, Center } from "@chakra-ui/react";
+import { Image, Text, SimpleGrid, Center } from "@chakra-ui/react";
 
 export type CardsDetails = {
   id: string;
@@ -39,8 +39,10 @@ function CardDetails() {
 
   return (
     <Center>
-      <Text fontSize="lg">{title}</Text>
-      <Image height="50%" width="50%" src={images?.fixed_height?.url} />
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing="40px">
+        <Image src={images?.fixed_height?.url} />
+        <Text fontSize="lg">{title}</Text>
+      </SimpleGrid>
     </Center>
   );
 }
