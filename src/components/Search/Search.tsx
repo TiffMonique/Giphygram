@@ -7,7 +7,7 @@ import axios from "axios";
 // Chakra imports
 import {
   Flex,
-  Button,
+  IconButton,
   SimpleGrid,
   useColorModeValue,
   Input,
@@ -18,6 +18,7 @@ import {
   FormControl,
   Box,
   Center,
+  Button,
 } from "@chakra-ui/react";
 
 import { IoSearchSharp, IoHeartOutline } from "react-icons/io5";
@@ -59,20 +60,22 @@ function Search() {
     <>
       <FormControl>
         <Center>
-          <InputGroup width="50%">
+          <InputGroup width="50%" mt="25px">
             <Input
               pr="4.5rem"
               focusBorderColor="lime"
               placeholder="Buscar Gifs"
               value={search}
               onChange={handleSearchChange}
+              borderRadius="20px"
             />
             <InputRightElement>
-              <Button
-                justifyContent="center"
-                rightIcon={<IoSearchSharp />}
+              <IconButton
+                aria-label=""
+                icon={<IoSearchSharp />}
                 onClick={handleSubmit}
                 type="submit"
+                borderRadius="20px"
               />
             </InputRightElement>
           </InputGroup>
