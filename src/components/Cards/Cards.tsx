@@ -33,7 +33,7 @@ function Cards() {
       const results = await axios("https://api.giphy.com/v1/gifs/trending", {
         params: {
           api_key: "RUDZVfvwwZNVQVTAHDYpcIeIN0jd6h6T",
-          limit: 100,
+
         },
       });
       setData(results.data.data);
